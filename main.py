@@ -17,7 +17,12 @@ def root():
 
 @app.post("/items")
 def create_item(item: Item):
-    items.append(item)
+    for existing_item in items:
+        if existing_item.text == item.text:
+            existing_item.is_done = item.is_done
+            return items
+    else:
+        items.append(item)
     return items
 
 
